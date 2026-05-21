@@ -18,7 +18,7 @@ logging.basicConfig(
 ATTACK_PATTERNS = {
     'sql_injection': [
         r'SELECT.*FROM', r'UNION.*SELECT', r'DROP.*TABLE',
-        r'INSERT.*INTO', r"' OR '1'='1", r'--', r'xp_cmdshell'
+        r'INSERT.*INTO', r"OR '1'='1", r'--', r'xp_cmdshell'
     ],
     'path_traversal': [
         r'\.\./', r'\.\.\\', r'/etc/passwd', r'/etc/shadow',
@@ -26,7 +26,7 @@ ATTACK_PATTERNS = {
     ],
     'shell_injection': [
         r';\s*cat\s', r';\s*ls\s', r';\s*wget\s', r';\s*curl\s',
-        r'\|\s*bash', r'.*', r'\$\(.*\)'
+        r'\|\s*bash', r'\$\(.*\)'
     ],
     'brute_force': [
         r'admin', r'root', r'password', r'123456',
