@@ -1,0 +1,7 @@
+﻿asyncio
+aiohttp
+fpdf2
+click
+rich
+pytest
+flake8
