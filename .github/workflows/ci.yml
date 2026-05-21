@@ -1,0 +1,42 @@
+﻿name: CI - Honeypot Logger
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install -r requirements.txt
+
+      - name: Lint with flake8
+        run: |
+          pip install flake8
+          flake8 main.py src/honeypot.py src/console.py --max-line-length=120 --ignore=E501,W503
+
+      - name: Test attack detection
+        run: |
+          python -c "
+          from src.honeypot import detect_attack
+          assert 'sql_injection' in detect_attack(\"SELECT * FROM users\")
+          assert 'path_traversal' in detect_attack('../etc/passwd')
+          assert 'shell_injection' in detect_attack('curl http://evil.com')
+          assert detect_attack('hello world') == []
+          print('All attack detection tests passed!')
+          "
+
+      - name: Test imports
+        run: python -c "from src.honeypot import HoneypotProtocol, log_connection; from src.console import HoneypotConsole; print('All imports OK')"
