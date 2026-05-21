@@ -1,6 +1,5 @@
 ﻿import asyncio
 import click
-import signal
 from src.honeypot import HoneypotProtocol
 from src.console import HoneypotConsole
 
