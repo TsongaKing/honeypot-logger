@@ -4,3 +4,4 @@ logs/*.log
 logs/*.json
 reports/*.pdf
 .env
+.env

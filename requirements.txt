@@ -1,7 +1,5 @@
-﻿asyncio
-aiohttp
-fpdf2
+﻿rich
 click
-rich
+requests
 pytest
 flake8
